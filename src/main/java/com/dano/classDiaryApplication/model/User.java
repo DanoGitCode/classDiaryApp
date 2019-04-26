@@ -12,6 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.dano.classDiaryApplication.model.Role;;
 
@@ -30,9 +34,13 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
+	@NotNull(message = "Wprowadź Email")
+	@Email(message = "Błędny email")
 	@Column(name = "email")
 	private String email;
 	
+	@NotNull(message = "Wprowadź hasło")
+	@Length(min = 8, message = "Hasło musi mieć co najmniej 8 znaków")
 	@Column(name = "password")
 	private String password;
 	
