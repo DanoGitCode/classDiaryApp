@@ -20,7 +20,7 @@ import com.dano.classDiaryApplication.model.Role;;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "auth_user_id")
 	private int id;
 	
