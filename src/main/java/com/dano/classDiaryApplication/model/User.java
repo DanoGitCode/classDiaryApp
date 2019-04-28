@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.Length;
 import com.dano.classDiaryApplication.model.Role;;
 
 @Entity
-@Table(name = "")
+@Table(name = "auth_user")
 public class User {
 
 	@Id
