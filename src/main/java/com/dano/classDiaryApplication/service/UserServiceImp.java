@@ -22,12 +22,21 @@ public class UserServiceImp implements UserService {
 	RoleRepository roleRepository;
 	@Autowired
 	UserRepository  userRepository;
+
+	Role userRole;
 	
 	@Override
 	public void saveUser(User user) {
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setStatus("VERIFIED");
-		Role userRole = roleRepository.findByRole("TEACHER_USER");
+		
+		
+		if (user.getuRole() == 1) {
+			userRole = roleRepository.findByRole("DIRECTOR_USER");
+		}
+		else if (user.getuRole() == 2) {
+			 userRole = roleRepository.findByRole("TEACHER_USER");
+		}
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}

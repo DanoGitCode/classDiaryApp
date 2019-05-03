@@ -37,12 +37,12 @@ public class User {
 	@NotNull(message = "Wprowadź Email")
 	@Email(message = "Błędny email")
 	@Column(name = "email")
-	private String email;
+	protected String email;
 	
 	@NotNull(message = "Wprowadź hasło")
 	@Length(min = 8, message = "Hasło musi mieć co najmniej 8 znaków")
 	@Column(name = "password")
-	private String password;
+	protected String password;
 	
 	@Column(name = "status")
 	private String status;
@@ -50,10 +50,14 @@ public class User {
 	@Column(name = "uclass")
 	private String uclass;
 	
+	@NotNull(message ="Wybierz rolę")
+	@Column(name="u_role")
+	private int uRole;
+	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
 	private Set<Role> roles;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -117,4 +121,14 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public int getuRole() {
+		return uRole;
+	}
+
+	public void setuRole(int uRole) {
+		this.uRole = uRole;
+	}
+	
+	
 }

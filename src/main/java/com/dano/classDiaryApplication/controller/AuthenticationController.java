@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.dano.classDiaryApplication.model.User;
 import com.dano.classDiaryApplication.service.UserService;
 
@@ -18,6 +17,8 @@ public class AuthenticationController {
 
 	@Autowired
 	UserService userService;
+	
+
 	
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -31,7 +32,7 @@ public class AuthenticationController {
 		ModelAndView modelAndView = new ModelAndView();
 		 User user = new User();
 		 modelAndView.addObject("user", user); 
-		modelAndView.setViewName("register"); // resources/template/register.html
+		 modelAndView.setViewName("register"); // resources/template/register.html
 		return modelAndView;
 	}
 	
@@ -57,6 +58,7 @@ public class AuthenticationController {
 		else {
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "Rejestracja przebiegła pomyślnie");
+			
 		}
 		
 		modelAndView.addObject("user", new User());
