@@ -20,7 +20,7 @@ public class Role {
 
 	@Column(name = "role_desc")
 	private String desc;
-
+	
 	public int getId() {
 		return id;
 	}
