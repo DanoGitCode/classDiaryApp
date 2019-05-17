@@ -18,6 +18,12 @@ public class AuthenticationController {
 	@Autowired
 	UserService userService;
 	
+	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
+	public String index() {
+	
+		return "index";
+	}			
+	
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView modelAndView = new ModelAndView();
