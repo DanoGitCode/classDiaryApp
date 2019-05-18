@@ -19,9 +19,10 @@ public class AuthenticationController {
 	UserService userService;
 	
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public String index() {
-	
-		return "index";
+	public ModelAndView index() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("index"); // resources/template/index.html
+		return modelAndView;
 	}			
 	
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
@@ -44,6 +45,27 @@ public class AuthenticationController {
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("home"); // resources/template/home.html
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/director", method = RequestMethod.GET)
+	public ModelAndView directorHome() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("director"); // resources/template/director.html
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
+	public ModelAndView teacherHome() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("teacher"); // resources/template/teacher.html
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/parent", method = RequestMethod.GET)
+	public ModelAndView parentHome() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("parent"); // resources/template/parent.html
 		return modelAndView;
 	}
 	

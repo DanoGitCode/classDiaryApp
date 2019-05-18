@@ -20,7 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-
+	@Autowired
+	private CustomLoginSuccessHandler successHandler;
 
 	@Autowired
 	private DataSource dataSource;
@@ -46,13 +47,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/register").permitAll()
 				.antMatchers("/home/**").hasAnyAuthority("DIRECTOR_USER", "TEACHER_USER", "PARENT_USER")
+				.antMatchers("/director/**").hasAnyAuthority("DIRECTOR_USER")
+				.antMatchers("/teacher/**").hasAnyAuthority("DIRECTOR_USER", "TEACHER_USER")
+				.antMatchers("/parent/**").hasAnyAuthority("PARENT_USER")
 				.anyRequest().authenticated()
 				.and()
 				// form login
 				.csrf().disable().formLogin()
 				.loginPage("/login")
 				.failureUrl("/login?error=true")
-				.defaultSuccessUrl("/home")
+				.successHandler(successHandler)
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.and()
