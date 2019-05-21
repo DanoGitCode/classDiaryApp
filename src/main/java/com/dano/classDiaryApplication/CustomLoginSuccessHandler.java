@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.ServletException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,13 +22,12 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 	
 	
 	@Override
-	protected void handle(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-		
-		String targetUrl = "";
+	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+			throws IOException {
+
+		String targetUrl = determineTargetUrl(authentication);
 
 		if (response.isCommitted()) {
-			
 			return;
 		}
 		RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -49,12 +48,15 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 		if (roles.contains("DIRECTOR_USER")) {
 			url = "/director";
 		} 
+		
 		else if (roles.contains("TEACHER_USER")) {
 			url = "/teacher";
 		}
+		
 		else if (roles.contains("PARENT_USER")) {
 			url = "/parent";
 		}
+		
 		return url;
 	}
 }
