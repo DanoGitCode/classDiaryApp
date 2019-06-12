@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Teacher site</title>
 </head>
 <body>
-Hello Teacher
+<div style="background-color:#337ab7;height:50px;">
+	Class Diary
+	<p> Hello Teacher <b th:text = "${email}"></b></p>
+</div>
+
+	<a href="/logout" class="active">Wyloguj</a>
+
 </body>
 </html>

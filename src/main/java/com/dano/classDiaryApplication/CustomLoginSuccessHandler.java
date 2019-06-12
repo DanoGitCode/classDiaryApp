@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
@@ -25,8 +26,13 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException {
 
+		String lastLoggedUser = "";
 		String targetUrl = determineTargetUrl(authentication);
 
+		HttpSession session = request.getSession();
+		lastLoggedUser = authentication.getName();
+		session.setAttribute("email", lastLoggedUser);
+		
 		if (response.isCommitted()) {
 			return;
 		}

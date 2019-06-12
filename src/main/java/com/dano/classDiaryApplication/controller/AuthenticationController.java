@@ -1,5 +1,8 @@
 package com.dano.classDiaryApplication.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +52,19 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value = "/director", method = RequestMethod.GET)
-	public ModelAndView directorHome() {
+	public ModelAndView directorHome(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
+		
+		String lastLoggedUserEmail = "";
+		String welcomeText = "";
+		
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+		lastLoggedUserEmail = (String) session.getAttribute("email");
+		welcomeText = "Hello" + lastLoggedUserEmail;
+		}
+		modelAndView.addObject("email", lastLoggedUserEmail);
+		modelAndView.addObject("welcomeText", welcomeText);
 		modelAndView.setViewName("director"); // resources/template/director.html
 		return modelAndView;
 	}

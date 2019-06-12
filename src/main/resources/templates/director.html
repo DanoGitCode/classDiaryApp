@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Director site</title>
 </head>
 <body>
-Hello Director
+<div style="background-color:#337ab7;height:50px;">
+	Class Diary
+	<p> Hello Director <b th:text = "${email}"></b></p>
+</div>
+
+
+	
+	<a href="/logout" class="active">Wyloguj</a>
+	<a href="/teacher" class="active">Nauczyciel</a>
+
 </body>
 </html>
