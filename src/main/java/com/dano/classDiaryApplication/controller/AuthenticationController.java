@@ -1,7 +1,6 @@
 package com.dano.classDiaryApplication.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -45,8 +44,18 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView home() {
+	public ModelAndView home(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
+		String lastLoggedUserEmail = "";
+		String welcomeText = "";
+		
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+		lastLoggedUserEmail = (String) session.getAttribute("email");
+		welcomeText = "Hello" + lastLoggedUserEmail;
+		}
+		
+		modelAndView.addObject("welcomeText", welcomeText);
 		modelAndView.setViewName("home"); // resources/template/home.html
 		return modelAndView;
 	}
@@ -56,22 +65,44 @@ public class AuthenticationController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		String lastLoggedUserEmail = "";
-		String welcomeText = "";
 		
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 		lastLoggedUserEmail = (String) session.getAttribute("email");
-		welcomeText = "Hello" + lastLoggedUserEmail;
 		}
+		
 		modelAndView.addObject("email", lastLoggedUserEmail);
-		modelAndView.addObject("welcomeText", welcomeText);
 		modelAndView.setViewName("director"); // resources/template/director.html
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
-	public ModelAndView teacherHome() {
+	@RequestMapping(value = "/director_teacher", method = RequestMethod.GET)
+	public ModelAndView director_teacherHome(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
+		
+		String lastLoggedUserEmail = "";
+		
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+		lastLoggedUserEmail = (String) session.getAttribute("email");
+		}
+		
+		modelAndView.addObject("email", lastLoggedUserEmail);
+		modelAndView.setViewName("director_teacher"); // resources/template/director.html
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
+	public ModelAndView teacherHome(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		String lastLoggedUserEmail = "";
+		
+		
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+		lastLoggedUserEmail = (String) session.getAttribute("email");
+		}
+		modelAndView.addObject("email", lastLoggedUserEmail);
 		modelAndView.setViewName("teacher"); // resources/template/teacher.html
 		return modelAndView;
 	}
