@@ -26,11 +26,12 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException {
 
-		String lastLoggedUser = "";
+		
 		String targetUrl = determineTargetUrl(authentication);
-
-		HttpSession session = request.getSession();
+		String lastLoggedUser = "";
+		
 		lastLoggedUser = authentication.getName();
+		HttpSession session = request.getSession();
 		session.setAttribute("email", lastLoggedUser);
 		
 		if (response.isCommitted()) {
@@ -43,6 +44,8 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 	protected String determineTargetUrl(Authentication authentication) {
 		String url = "/login?error=true";
 
+		
+		
 		// Fetch the roles from Authentication object
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		List<String> roles = new ArrayList<String>();

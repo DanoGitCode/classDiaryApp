@@ -56,7 +56,7 @@ public class AuthenticationController {
 		}
 		
 		modelAndView.addObject("welcomeText", welcomeText);
-		modelAndView.setViewName("home"); // resources/template/home.html
+		modelAndView.setViewName("index"); // resources/template/index.html
 		return modelAndView;
 	}
 	
@@ -67,7 +67,7 @@ public class AuthenticationController {
 		String lastLoggedUserEmail = "";
 		
 		HttpSession session = request.getSession(false);
-		if(session != null) {
+		if(session != null) { 
 		lastLoggedUserEmail = (String) session.getAttribute("email");
 		}
 		
